@@ -1,0 +1,35 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/merch
+    username: mithunnirmal
+    password: 6969
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+  show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mithunnirmal.noreply@gmail.com
+    password: voru cabe jqvo hccv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+
+server:
+  error:
+    include-message: always
+
+
+application:
+  security:
+    jwt:
+      secret-key: c0bb80d74322cc8557287e1e7dbb1e8e7763f4ce75393541b341755a1a99d043 # coipied, so change it later
+      expiration: 86400000 # a day
+
+
