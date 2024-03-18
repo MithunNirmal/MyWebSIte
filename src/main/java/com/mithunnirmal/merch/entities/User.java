@@ -5,7 +5,9 @@ import com.mithunnirmal.merch.enums.UserRole;
 import com.mithunnirmal.merch.modelDtos.AddressDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="users")
 public class User extends Auditable implements UserDetails {
 

@@ -2,11 +2,15 @@ package com.mithunnirmal.merch.entities;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 
     @Id

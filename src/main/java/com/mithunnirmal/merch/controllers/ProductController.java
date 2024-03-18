@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin//(origins = "http://localhost:5173")
 @RequestMapping ("/api/v1")
 public class ProductController {
 
@@ -26,7 +25,6 @@ public class ProductController {
     public ResponseEntity<List<ProductDto>> getProducts() {
         List<ProductDto> productsDtoList =  null;
         try{
-            System.out.println("jghvcvoigcovchvuvj ghvg     6666666666666");
             productsDtoList = productService.getProducts();
         }
         catch(Exception e) {
@@ -54,6 +52,5 @@ public class ProductController {
     public ResponseEntity<String> test ()  {
         return  ResponseEntity.ok("Test successfull");
     }
-
 
 }
