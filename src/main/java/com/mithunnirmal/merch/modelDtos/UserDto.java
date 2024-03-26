@@ -6,13 +6,19 @@ import com.mithunnirmal.merch.entities.User;
 import com.mithunnirmal.merch.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

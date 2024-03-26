@@ -5,6 +5,7 @@ import com.mithunnirmal.merch.config.JwtService;
 import com.mithunnirmal.merch.entities.Address;
 import com.mithunnirmal.merch.entities.User;
 import com.mithunnirmal.merch.entities.verificationtoken.VerificationToken;
+import com.mithunnirmal.merch.enums.UserRole;
 import com.mithunnirmal.merch.event.RegistrationCompleteEvent;
 import com.mithunnirmal.merch.exception.UserEmailTakenException;
 import com.mithunnirmal.merch.exception.UserNotVerifiedException;
@@ -55,6 +56,7 @@ public class UserService {
 //        List<Address> addresss = userDto.getAddressDtos().stream().map(addressDto -> modelMapper.map(addressDto, Address.class))
 //                                                                                              .collect(Collectors.toList());
         User user = modelMapper.map(userDto, User.class);
+        user.setRole(UserRole.USER);
         Optional<User> found = userRepository.findByEmail(user.getEmail());
         if (found.isPresent())
             if(!found.get().isEnabled())
@@ -65,10 +67,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         //TODO: Address will not be received during registration in production
-        List<Address> addresses = user.getAddress();
-        user.setAddress(null);
+//        List<Address> addresses = user.getAddress();
+//        user.setAddress(null);
         userRepository.save(user);
-        saveUserAddress(addresses, user);
+//        saveUserAddress(addresses, user);
         publisher.publishEvent(new RegistrationCompleteEvent(
                 user,
                 applicationUrl(request)));
@@ -78,6 +80,8 @@ public class UserService {
         authService.saveUserToken(user, jwt);
         return AuthenticationResponse.builder()
                 .accessToken(jwt)
+                .userName(user.getFirstName())
+                .userId(user.getId())
                 .build();
     }
 
@@ -118,5 +122,9 @@ public class UserService {
     public String deleteUser(String userId) {
         userRepository.deleteById(userId);
         return userId;
+    }
+
+    public UserDto getUserDetails(String userId) {
+        return modelMapper.map(userRepository.findById(userId).get(), UserDto.class );
     }
 }

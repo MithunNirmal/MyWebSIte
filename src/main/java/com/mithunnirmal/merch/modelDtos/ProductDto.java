@@ -1,5 +1,6 @@
 package com.mithunnirmal.merch.modelDtos;
 
+import com.mithunnirmal.merch.enums.ProductType;
 import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +20,5 @@ public class ProductDto {
     List<String> variants = new ArrayList<>();
 
     List<String> imageLinks = new ArrayList<>();
+    ProductType productType = ProductType.DELIVERABLE;
 }

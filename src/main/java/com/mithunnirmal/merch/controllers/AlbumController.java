@@ -5,20 +5,19 @@ import com.mithunnirmal.merch.services.AlbumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/album/")
+@RequestMapping(path = "/api/v1/album")
 @Slf4j
 public class AlbumController {
 
     @Autowired
     private AlbumService albumService;
-    @GetMapping(path = "/albums")
+    @GetMapping(path = "/public/albums")
     public ResponseEntity<List<AlbumDto>> getAllAlbums() {
         List<AlbumDto> list;
         try {
@@ -42,7 +41,7 @@ public class AlbumController {
         return ResponseEntity.ok("Successfully Added");
     }
 
-    @PostMapping("/addAlbumWithGDriveLink")
+    @PostMapping("/admin/addAlbumWithGDriveLink")
     public ResponseEntity<String> addAlbumWithGoogleDriveLink (@RequestBody AlbumDto albumDto) {
 
         try {
@@ -52,17 +51,26 @@ public class AlbumController {
         return ResponseEntity.ok("Successfully added ");
     }
 
-    @GetMapping("/albumsGDrive")
+    @GetMapping("/public/albumsGDrive")
     public ResponseEntity<List<AlbumDto>> getAllAlbumsBasedOnGDriveId () {
         List<AlbumDto> list;
         try {
             log.info("entering get albums");
             list = albumService.getAllAlbumsBasedOnGDriveId();
-            log.info("got a list " + list);
         }
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/public/{id}")
+    public ResponseEntity<AlbumDto> getAlbumById(@PathVariable("id") String id) {
+        AlbumDto dto = null;
+        try{
+            dto = albumService.getAlbumById(id);
+        }catch (Exception e) {return new ResponseEntity<>((HttpStatus.INTERNAL_SERVER_ERROR));}
+
+        return ResponseEntity.ok(dto);
     }
  }

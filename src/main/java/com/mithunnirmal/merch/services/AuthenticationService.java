@@ -14,6 +14,7 @@ import com.mithunnirmal.merch.repositories.UserRepository;
 import com.mithunnirmal.merch.repositories.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,6 @@ public class AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     //Registration authentication is implemented in user controller
 
     public AuthenticationResponse authenticate(AuthenticationRequest request)
@@ -47,17 +47,22 @@ public class AuthenticationService {
         if(!user.isEnabled()) {
             notifyUserNotEnabled(user);
         }
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
+
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+        }catch (BadCredentialsException e) {throw new BadCredentialsException(e.getMessage());}
 
         String jwt = jwtService.generateToken(user);
         saveUserToken(user, jwt);
         return AuthenticationResponse.builder()
                 .accessToken(jwt)
+                .userName(user.getFirstName())
+                .userId(user.getId())
                 .build();
     }
 

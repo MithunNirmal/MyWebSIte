@@ -1,6 +1,7 @@
 package com.mithunnirmal.merch.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mithunnirmal.merch.enums.AlbumType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,9 @@ public class Album extends Auditable{
     String coverLink;
 
     String primaryArtist;
+
+    @Enumerated(EnumType.STRING)
+    AlbumType type;
 
 //    @OneToOne
 //    Artist primaryArtist;

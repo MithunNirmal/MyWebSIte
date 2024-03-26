@@ -1,6 +1,7 @@
 package com.mithunnirmal.merch.services;
 
 import com.mithunnirmal.merch.entities.Product;
+import com.mithunnirmal.merch.enums.ProductType;
 import com.mithunnirmal.merch.modelDtos.ProductDto;
 import com.mithunnirmal.merch.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
@@ -22,9 +23,10 @@ public class ProductService {
 
     public List<ProductDto> getProducts() {
         Optional<List<Product>> products = Optional.of(productRepository.findAll());
-        List<ProductDto> ProductsDto = products.get().stream().
+        List<ProductDto> productsDto = products.get().stream().
                     map(Product -> modelMapper.map(Product, ProductDto.class)).collect(Collectors.toList());
-        return ProductsDto;
+        productsDto.forEach(productDto -> productDto.setProductType(ProductType.DELIVERABLE));
+        return productsDto;
     }
 
     public ProductDto addProduct(ProductDto productDto) {

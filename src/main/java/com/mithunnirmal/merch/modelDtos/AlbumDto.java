@@ -1,6 +1,8 @@
 package com.mithunnirmal.merch.modelDtos;
 
 import com.mithunnirmal.merch.entities.Song;
+import com.mithunnirmal.merch.enums.AlbumType;
+import com.mithunnirmal.merch.enums.ProductType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +21,8 @@ public class AlbumDto {
     String name;
     String coverLink;
     String primaryArtist;
+    AlbumType type;
     String link;
     List<SongDto> songs;
+    ProductType productType;
 }

@@ -1,5 +1,6 @@
 package com.mithunnirmal.merch.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mithunnirmal.merch.entities.verificationtoken.VerificationToken;
 import com.mithunnirmal.merch.enums.UserRole;
 import com.mithunnirmal.merch.modelDtos.AddressDto;
@@ -55,6 +56,10 @@ public class User extends Auditable implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL )
     private List<VerificationToken> verificationTokens;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Cart> cartList;
 
     public User addAddress(Address address) {
         address.setUsers(this);

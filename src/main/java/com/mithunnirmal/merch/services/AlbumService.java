@@ -2,6 +2,7 @@ package com.mithunnirmal.merch.services;
 
 import com.mithunnirmal.merch.entities.Album;
 import com.mithunnirmal.merch.entities.Song;
+import com.mithunnirmal.merch.enums.ProductType;
 import com.mithunnirmal.merch.modelDtos.AlbumDto;
 import com.mithunnirmal.merch.modelDtos.SongDto;
 import com.mithunnirmal.merch.repositories.AlbumRepository;
@@ -55,6 +56,7 @@ public class AlbumService {
                                             .link(song.getLink())
                                             .build();
                                 }).collect(Collectors.toList()))
+                                .productType(ProductType.DOWNLOADABLE)
                                 .build();
                     })
                     .collect(Collectors.toList());
@@ -92,11 +94,15 @@ public class AlbumService {
     }
 
     public String addAlbumWithGoogleDriveLink(AlbumDto albumDto) {
+        if(albumRepository.findByName(albumDto.getName()).isPresent())
+            throw new IllegalStateException();
+
         Album album = Album.builder()
                 .name(albumDto.getName())
                 .link(getFileIdFromGDriveLink(albumDto.getLink()))
                 .coverLink(getFileIdFromGDriveLink(albumDto.getCoverLink()))
                 .primaryArtist(albumDto.getPrimaryArtist())
+                .type(albumDto.getType())
                 .build();
         albumRepository.save(album);
 
@@ -125,6 +131,7 @@ public class AlbumService {
                             .id(album.getId())
                             .name(album.getName())
                             .primaryArtist(album.getPrimaryArtist())
+                            .type(album.getType())
                             .coverLink(G_DRIVE_THUMBNAIL + album.getCoverLink())
                             .songs(album.getSongs().stream().map(song -> {
                                 return new SongDto().builder()
@@ -135,9 +142,32 @@ public class AlbumService {
                                       //  .link()
                                         .build();
                             }).collect(Collectors.toList()))
+                            .productType(ProductType.DOWNLOADABLE)
                             .build();
                     }).collect(Collectors.toList());
 
         return albumsDto;
     }
- }
+
+    public AlbumDto getAlbumById(String id) {
+        Album album = albumRepository.getReferenceById(id);
+
+        return new AlbumDto().builder()
+                .id(album.getId())
+                .name(album.getName())
+                .primaryArtist(album.getPrimaryArtist())
+                .type(album.getType())
+                .coverLink(G_DRIVE_THUMBNAIL + album.getCoverLink())
+                .songs(album.getSongs().stream().map(song -> {
+                    return new SongDto().builder()
+                            .name(song.getName())
+                            .id(song.getId())
+                            .artist(song.getArtist())
+                            .coverLink(G_DRIVE_THUMBNAIL + song.getCoverLink())
+                            //  .link()
+                            .build();
+                }).collect(Collectors.toList()))
+                .productType(ProductType.DOWNLOADABLE)
+                .build();
+    }
+}
