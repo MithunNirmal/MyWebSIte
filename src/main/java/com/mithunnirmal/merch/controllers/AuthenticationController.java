@@ -1,7 +1,7 @@
 package com.mithunnirmal.merch.controllers;
 
-import com.mithunnirmal.merch.auth.AuthenticationRequest;
-import com.mithunnirmal.merch.auth.AuthenticationResponse;
+import com.mithunnirmal.merch.response.AuthenticationRequest;
+import com.mithunnirmal.merch.response.AuthenticationResponse;
 import com.mithunnirmal.merch.exception.UserNotFoundException;
 import com.mithunnirmal.merch.exception.UserNotVerifiedException;
 import com.mithunnirmal.merch.services.AuthenticationService;

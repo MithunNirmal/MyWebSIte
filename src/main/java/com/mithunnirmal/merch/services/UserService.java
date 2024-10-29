@@ -1,6 +1,6 @@
 package com.mithunnirmal.merch.services;
 
-import com.mithunnirmal.merch.auth.AuthenticationResponse;
+import com.mithunnirmal.merch.response.AuthenticationResponse;
 import com.mithunnirmal.merch.config.JwtService;
 import com.mithunnirmal.merch.entities.Address;
 import com.mithunnirmal.merch.entities.User;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;

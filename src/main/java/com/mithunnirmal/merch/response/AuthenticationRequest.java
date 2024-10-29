@@ -1,4 +1,4 @@
-package com.mithunnirmal.merch.auth;
+package com.mithunnirmal.merch.response;
 
 
 import lombok.AllArgsConstructor;

@@ -41,6 +41,14 @@ public class AlbumController {
         return ResponseEntity.ok("Successfully Added");
     }
 
+    @PostMapping()
+    public ResponseEntity<String> addAlbumToGDrive(@RequestBody String str) {
+        try {
+            albumService.addAlbumToGDrive();
+        }catch (Exception e) {return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);}
+        return ResponseEntity.ok("Successfully Added");
+    }
+
     @PostMapping("/admin/addAlbumWithGDriveLink")
     public ResponseEntity<String> addAlbumWithGoogleDriveLink (@RequestBody AlbumDto albumDto) {
 

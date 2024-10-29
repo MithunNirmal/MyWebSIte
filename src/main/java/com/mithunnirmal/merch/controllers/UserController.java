@@ -1,17 +1,14 @@
 package com.mithunnirmal.merch.controllers;
 
-import com.mithunnirmal.merch.auth.AuthenticationRequest;
-import com.mithunnirmal.merch.auth.AuthenticationResponse;
+import com.mithunnirmal.merch.response.AuthenticationResponse;
 import com.mithunnirmal.merch.entities.User;
 import com.mithunnirmal.merch.entities.verificationtoken.VerificationToken;
 import com.mithunnirmal.merch.exception.UserNotVerifiedException;
 import com.mithunnirmal.merch.modelDtos.UserDto;
-import com.mithunnirmal.merch.services.AuthenticationService;
 import com.mithunnirmal.merch.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

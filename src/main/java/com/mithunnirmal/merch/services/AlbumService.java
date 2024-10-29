@@ -170,4 +170,10 @@ public class AlbumService {
                 .productType(ProductType.DOWNLOADABLE)
                 .build();
     }
+
+    public void addAlbumToGDrive() {
+
+        
+
+    }
 }

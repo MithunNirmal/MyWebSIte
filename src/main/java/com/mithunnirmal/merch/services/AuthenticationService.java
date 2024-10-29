@@ -1,25 +1,21 @@
 package com.mithunnirmal.merch.services;
 
-import com.mithunnirmal.merch.auth.AuthenticationRequest;
-import com.mithunnirmal.merch.auth.AuthenticationResponse;
+import com.mithunnirmal.merch.response.AuthenticationRequest;
+import com.mithunnirmal.merch.response.AuthenticationResponse;
 import com.mithunnirmal.merch.config.JwtService;
 import com.mithunnirmal.merch.entities.Token;
 import com.mithunnirmal.merch.entities.User;
-import com.mithunnirmal.merch.entities.verificationtoken.VerificationToken;
 import com.mithunnirmal.merch.enums.TokenType;
 import com.mithunnirmal.merch.exception.UserNotFoundException;
 import com.mithunnirmal.merch.exception.UserNotVerifiedException;
 import com.mithunnirmal.merch.repositories.JwTokenRepository;
 import com.mithunnirmal.merch.repositories.UserRepository;
-import com.mithunnirmal.merch.repositories.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static com.mithunnirmal.merch.utils.UserUtils.notifyUserNotEnabled;
 

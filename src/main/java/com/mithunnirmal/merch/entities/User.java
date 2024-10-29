@@ -3,11 +3,11 @@ package com.mithunnirmal.merch.entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mithunnirmal.merch.entities.verificationtoken.VerificationToken;
 import com.mithunnirmal.merch.enums.UserRole;
-import com.mithunnirmal.merch.modelDtos.AddressDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @AllArgsConstructor
@@ -60,6 +61,10 @@ public class User extends Auditable implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Cart> cartList;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Order> orders;
 
     public User addAddress(Address address) {
         address.setUsers(this);
