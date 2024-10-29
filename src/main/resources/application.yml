@@ -37,5 +37,3 @@ application:
     jwt:
       secret-key: c0bb80d74322cc8557287e1e7dbb1e8e7763f4ce75393541b341755a1a99d043 # coipied, so change it later
       expiration: 86400000 # a day
-
-

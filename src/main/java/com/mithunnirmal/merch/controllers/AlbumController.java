@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -72,5 +75,21 @@ public class AlbumController {
         }catch (Exception e) {return new ResponseEntity<>((HttpStatus.INTERNAL_SERVER_ERROR));}
 
         return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/public/upload")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
+        String uploadDir = "Uploads/"; // Directory to save uploaded files
+
+        try {
+
+            albumService.upload(file);
+            // Save the file
+            File destinationFile = new File(uploadDir + file.getOriginalFilename());
+            file.transferTo(destinationFile);
+            return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("File upload failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
  }
